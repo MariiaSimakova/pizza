@@ -110,7 +110,9 @@ body {
       }
     }
   }
-
+  &__items {
+    display: block;
+  }
   &__item {
     display: flex;
     width: 100%;
@@ -317,9 +319,9 @@ body {
 }
 
 @media (max-width: 620px) {
-  .header {
-    padding-bottom: 5px;
-  }
+  // .header {
+  //   padding-bottom: 5px;
+  // }
   .sort {
     b {
       display: none;
@@ -336,9 +338,9 @@ body {
   }
 }
 @media (max-width: 450px) {
-  .header {
-    padding-bottom: 5px;
-  }
+  // .header {
+  //   padding-bottom: 5px;
+  // }
 
   .content__top {
     flex-wrap: wrap;
