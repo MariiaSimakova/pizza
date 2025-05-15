@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function Sort({ value, onChangeSort }) {
+function Sort({ value, onChangeSort, orderType, setOrderType }) {
   const [open, setOpen] = useState(false);
 
   const list = [
@@ -18,6 +18,8 @@ function Sort({ value, onChangeSort }) {
     <div className="sort">
       <div className="sort__label">
         <svg
+          onClick={() => setOrderType(!orderType)}
+          transform={orderType ? "rotate(-180 0 0)" : ""}
           width="10"
           height="6"
           viewBox="0 0 10 6"
