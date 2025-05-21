@@ -14,24 +14,14 @@ const Home = ({ searchValue }) => {
     sortProperty: "rating",
   });
   const [orderType, setOrderType] = useState(true);
-  const pizzas = items
-    .filter((obj) => {
-      if (obj.title.toLowerCase().includes(searchValue.toLowerCase())) {
-        return true;
-      }
-      return false;
-    })
-    .map((obj) => <PizzaBlock key={obj.id} {...obj} />);
-  const skeleton = [...new Array(6)].map((_, index) => (
-    <Skeleton key={index} />
-  ));
+  const search = searchValue ? `search=${searchValue}` : "";
 
   useEffect(() => {
     setIsLoading(true);
     fetch(
       `https://6811c5a73ac96f7119a58412.mockapi.io/items?category=${categoryId}&sortBy=${
         sortType.sortProperty
-      }&order=${orderType ? "desc" : "asc"}`
+      }&order=${orderType ? "desc" : "asc"}&${search}`
     )
       .then((res) => res.json())
       .then((arr) => {
@@ -39,7 +29,12 @@ const Home = ({ searchValue }) => {
         setIsLoading(false);
       });
     window.scrollTo(0, 0);
-  }, [categoryId, sortType, orderType]);
+  }, [categoryId, sortType, orderType, searchValue]);
+
+  const pizzas = items.map((obj) => <PizzaBlock key={obj.id} {...obj} />);
+  const skeleton = [...new Array(6)].map((_, index) => (
+    <Skeleton key={index} />
+  ));
 
   return (
     <div className="container">
