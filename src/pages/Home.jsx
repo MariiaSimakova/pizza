@@ -8,18 +8,14 @@ import PizzaBlock from "../components/PizzaBlock/PizzaBlock";
 import Skeleton from "../components/PizzaBlock/Skeleton";
 
 const Home = ({ searchValue }) => {
-  const categoryId = useSelector((state) => state.filter.categoryId);
   const dispatch = useDispatch();
+  const { categoryId, sort } = useSelector((state) => state.filter);
+  const sortType = sort.sortProperty;
+  // const orderType = useSelector((state) => state.filter.orderType);
 
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  // const [categoryId, setCategoryId] = useState(0);
-  const [sortType, setSortType] = useState({
-    name: "популярности",
-    sortProperty: "rating",
-  });
   const [orderType, setOrderType] = useState(true);
-  // const search = searchValue ? `search=${searchValue}` : "";
 
   const onChangeCategory = (id) => {
     dispatch(setCategoryId(id));
@@ -28,9 +24,9 @@ const Home = ({ searchValue }) => {
   useEffect(() => {
     setIsLoading(true);
     fetch(
-      `https://6811c5a73ac96f7119a58412.mockapi.io/items?category=${categoryId}&sortBy=${
-        sortType.sortProperty
-      }&order=${orderType ? "desc" : "asc"}`
+      `https://6811c5a73ac96f7119a58412.mockapi.io/items?category=${categoryId}&sortBy=${sortType}&order=${
+        orderType ? "desc" : "asc"
+      }`
     )
       .then((res) => res.json())
       .then((arr) => {
@@ -56,12 +52,7 @@ const Home = ({ searchValue }) => {
     <div className="container">
       <div className="content__top">
         <Categories value={categoryId} onChangeCategory={onChangeCategory} />
-        <Sort
-          value={sortType}
-          onChangeSort={(id) => setSortType(id)}
-          orderType={orderType}
-          setOrderType={setOrderType}
-        />
+        <Sort orderType={orderType} setOrderType={setOrderType} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">{isLoading ? skeleton : pizzas}</div>

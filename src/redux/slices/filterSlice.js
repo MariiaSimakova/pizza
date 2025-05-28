@@ -3,6 +3,9 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   categoryId: 0,
   sort: { name: "популярности", sortProperty: "rating" },
+
+  // orderType для треугольника сортировки
+  // orderType: true,
 };
 
 export const filterSlice = createSlice({
@@ -10,12 +13,22 @@ export const filterSlice = createSlice({
   initialState,
   reducers: {
     setCategoryId(state, action) {
-      console.log(action.payload);
       state.categoryId = action.payload;
     },
+    setSort(state, action) {
+      state.sort = action.payload;
+    },
+
+    // setOrderType(state) {
+    //   state.orderType = 5;
+    // },
   },
 });
 
-export const { setCategoryId } = filterSlice.actions;
+export const {
+  setCategoryId,
+  setSort,
+  // setOrderType
+} = filterSlice.actions;
 
 export default filterSlice.reducer;
