@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { setCategoryId } from "../redux/slices/filterSlice";
@@ -23,14 +24,14 @@ const Home = ({ searchValue }) => {
 
   useEffect(() => {
     setIsLoading(true);
-    fetch(
-      `https://6811c5a73ac96f7119a58412.mockapi.io/items?category=${categoryId}&sortBy=${sortType}&order=${
-        orderType ? "desc" : "asc"
-      }`
-    )
-      .then((res) => res.json())
-      .then((arr) => {
-        setItems(arr);
+    axios
+      .get(
+        `https://6811c5a73ac96f7119a58412.mockapi.io/items?category=${categoryId}&sortBy=${sortType}&order=${
+          orderType ? "desc" : "asc"
+        }`
+      )
+      .then((res) => {
+        setItems(res.data);
         setIsLoading(false);
       });
     window.scrollTo(0, 0);
