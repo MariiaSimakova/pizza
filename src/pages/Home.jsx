@@ -1,5 +1,4 @@
 import axios from "axios";
-import { Pagination } from "@mui/material";
 
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
@@ -9,6 +8,7 @@ import Categories from "../components/Categories";
 import Sort from "../components/Sort";
 import PizzaBlock from "../components/PizzaBlock/PizzaBlock";
 import Skeleton from "../components/PizzaBlock/Skeleton";
+import Pagination from "../components/Pagination/Pagination";
 
 const Home = ({ searchValue }) => {
   const dispatch = useDispatch();
@@ -19,14 +19,7 @@ const Home = ({ searchValue }) => {
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [orderType, setOrderType] = useState(true);
-
-  // current page
-  const [page, setPage] = useState(1);
-  //Pizza total cause MockApi doesn give you the number for free
-  const pizzaSum = 10;
-  const limit = 4;
-  // Общее количество страниц для пагинации
-  const pageSum = Math.ceil(pizzaSum / limit);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const onChangeCategory = (id) => {
     dispatch(setCategoryId(id));
@@ -36,7 +29,7 @@ const Home = ({ searchValue }) => {
     setIsLoading(true);
     axios
       .get(
-        `https://6811c5a73ac96f7119a58412.mockapi.io/items?page=${page}&limit=${limit}&category=${categoryId}&sortBy=${sortType}&order=${
+        `https://6811c5a73ac96f7119a58412.mockapi.io/items?page=${currentPage}&limit=${4}&category=${categoryId}&sortBy=${sortType}&order=${
           orderType ? "desc" : "asc"
         }
         `
@@ -46,7 +39,7 @@ const Home = ({ searchValue }) => {
         setIsLoading(false);
       });
     window.scrollTo(0, 0);
-  }, [categoryId, sortType, orderType, page]);
+  }, [categoryId, sortType, orderType, currentPage]);
 
   const pizzas = items
     .filter((obj) => {
@@ -68,13 +61,7 @@ const Home = ({ searchValue }) => {
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">{isLoading ? skeleton : pizzas}</div>
-
-      <Pagination
-        count={pageSum}
-        page={page}
-        onChange={(_, num) => setPage(num)}
-        size="large"
-      />
+      <Pagination onChangePage={(number) => setCurrentPage(number)} />
     </div>
   );
 };
