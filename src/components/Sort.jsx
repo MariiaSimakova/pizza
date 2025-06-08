@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setSort } from "../redux/slices/filterSlice";
 
@@ -12,6 +12,9 @@ function Sort({ orderType, setOrderType }) {
   const dispatch = useDispatch();
   const sort = useSelector((state) => state.filter.sort);
   // const orderType = useSelector((state) => state.filter.orderType);
+
+  const sortRef = useRef();
+
   const [open, setOpen] = useState(false);
 
   const onClickListItem = (obj) => {
@@ -19,8 +22,22 @@ function Sort({ orderType, setOrderType }) {
     setOpen(false);
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!event.composedPath().includes(sortRef.current)) {
+        setOpen(false);
+      }
+    };
+
+    document.body.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.body.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div className="sort">
+    <div ref={sortRef} className="sort">
       <div className="sort__label">
         <svg
           onClick={() => setOrderType(!orderType)}
