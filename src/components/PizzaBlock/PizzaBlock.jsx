@@ -6,6 +6,7 @@ const typeNames = ["тонкое", "традиционное"];
 
 function PizzaBlock({ id, imageUrl, title, price, sizes, types }) {
   const dispatch = useDispatch();
+  // запрос одной пиццы
   const cartItem = useSelector((state) =>
     state.cart.items.find((obj) => obj.id === id)
   );
