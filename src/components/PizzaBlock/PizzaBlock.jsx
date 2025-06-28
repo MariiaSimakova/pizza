@@ -23,7 +23,7 @@ function PizzaBlock({ id, imageUrl, title, price, sizes, types }) {
       title,
       price,
       type: typeNames[activeType],
-      size: activeSize,
+      size: sizes[activeSize],
     };
 
     // отправляем новый item в корзину редакс

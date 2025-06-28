@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { clearItem } from "../redux/slices/cartSlice";
 
 import CartItem from "../components/CartItem";
+import CartEmpty from "../components/CartEmpty";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -19,6 +20,9 @@ const Cart = () => {
     }
   };
 
+  if (!totalPrice) {
+    return <CartEmpty />;
+  }
   return (
     <div className="container container--cart">
       <div className="cart">
