@@ -39,19 +39,23 @@ const Home = ({ searchValue }) => {
     dispatch(setCurrentPage(page));
   };
 
-  const fetchPizzas = () => {
-    setIsLoading(true);
-    axios
-      .get(
+  const fetchPizzas = async () => {
+    try {
+      const res = await axios.get(
         `https://6811c5a73ac96f7119a58412.mockapi.io/items?page=${currentPage}&limit=${4}&category=${categoryId}&sortBy=${sortType}&order=${
           orderType ? "desc" : "asc"
         }
         `
-      )
-      .then((res) => {
-        setItems(res.data);
-        setIsLoading(false);
-      });
+      );
+      setItems(res.data);
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error, console.log("Error!"));
+    } finally {
+      setIsLoading(false);
+    }
+
+    window.scrollTo(0, 0);
   };
 
   // Если изменили параметры и был первый рендер
