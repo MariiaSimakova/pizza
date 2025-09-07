@@ -21,6 +21,20 @@ body {
   }
 }
 
+.error-info {
+  margin: 70px auto;
+  text-align: center;
+
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+
+  p {
+    font-size: 1.5rem;
+  }
+}
+
 .content {
   padding: 40px 0;
 
