@@ -18,7 +18,7 @@ import PizzaBlock from "../components/PizzaBlock/PizzaBlock";
 import Skeleton from "../components/PizzaBlock/Skeleton";
 import Pagination from "../components/Pagination/Pagination";
 
-const Home = ({ searchValue }) => {
+const Home = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isSearch = useRef(false);
@@ -26,7 +26,8 @@ const Home = ({ searchValue }) => {
 
   const { items, status } = useSelector(selectPizzaData);
 
-  const { categoryId, sort, currentPage } = useSelector(selectFilter);
+  const { categoryId, sort, currentPage, searchValue } =
+    useSelector(selectFilter);
 
   const sortType = sort.sortProperty;
 
