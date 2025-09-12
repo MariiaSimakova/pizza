@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const fetchPizzas = createAsyncThunk(
   "pizza/fetchPizzasStatus",
-  async (params) => {
+  async (params, thunkAPI) => {
     const { currentPage, categoryId, sortType, orderType } = params;
 
     const { data } = await axios.get(
