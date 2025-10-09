@@ -1,7 +1,8 @@
+import { FC } from "react";
 import notFoundPic from "../../assets/img/notFound.jpg";
 import styles from "../NotFoundBlock/NotFoundBlock.module.scss";
 
-const NotFoundBlock = () => {
+const NotFoundBlock: FC = () => {
   return (
     <div className={styles.root}>
       <h1>Ничего не найдено 😢</h1>
