@@ -1,14 +1,15 @@
 import { FC, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectSort, setSort } from "../redux/slices/filterSlice";
+import {
+  selectSort,
+  setSort,
+  selectOrderType,
+  setOrderType,
+} from "../redux/slices/filterSlice";
 
 type SortItem = {
   name: string;
   sortProperty: string;
-};
-
-type SortProps = {
-  orderType: boolean;
 };
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -18,17 +19,20 @@ export const sortList: SortItem[] = [
   { name: "алфавиту", sortProperty: "title" },
 ];
 
-const Sort: FC<SortProps> = ({ orderType, setOrderType }) => {
+const Sort: FC = () => {
   const dispatch = useDispatch();
   const sort = useSelector(selectSort);
-  // const orderType = useSelector((state) => state.filter.orderType);
+  const orderType = useSelector(selectOrderType);
   const sortRef = useRef<HTMLDivElement>(null);
-
   const [open, setOpen] = useState(false);
 
   const onClickListItem = (obj: SortItem) => {
     dispatch(setSort(obj));
     setOpen(false);
+  };
+
+  const onClickOrderType = () => {
+    dispatch(setOrderType());
   };
 
   useEffect(() => {
@@ -49,7 +53,7 @@ const Sort: FC<SortProps> = ({ orderType, setOrderType }) => {
     <div ref={sortRef} className="sort">
       <div className="sort__label">
         <svg
-          onClick={() => setOrderType(!orderType)}
+          onClick={onClickOrderType}
           transform={orderType ? "rotate(-180 0 0)" : ""}
           width="10"
           height="6"

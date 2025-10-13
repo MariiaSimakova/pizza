@@ -7,7 +7,7 @@ const initialState = {
   sort: { name: "популярности", sortProperty: "rating" },
 
   // orderType для треугольника сортировки
-  // orderType: true,
+  orderType: true,
 };
 
 export const filterSlice = createSlice({
@@ -32,14 +32,15 @@ export const filterSlice = createSlice({
       state.categoryId = Number(action.payload.categoryId);
     },
 
-    // setOrderType(state) {
-    //   state.orderType = 5;
-    // },
+    setOrderType(state) {
+      state.orderType = !state.orderType;
+    },
   },
 });
 
 export const selectFilter = (state) => state.filter;
 export const selectSort = (state) => state.filter.sort;
+export const selectOrderType = (state) => state.filter.orderType;
 
 export const {
   setCategoryId,
@@ -47,7 +48,7 @@ export const {
   setCurrentPage,
   setFilters,
   setSearchValue,
-  // setOrderType
+  setOrderType,
 } = filterSlice.actions;
 
 export default filterSlice.reducer;

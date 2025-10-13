@@ -2,7 +2,7 @@ import qs from "qs";
 import { useNavigate } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
-import { FC, useCallback, useEffect, useRef, useState } from "react";
+import { FC, useCallback, useEffect, useRef } from "react";
 import {
   selectFilter,
   setCategoryId,
@@ -25,13 +25,9 @@ const Home: FC = () => {
   const isMounted = useRef(false);
 
   const { items, status } = useSelector(selectPizzaData);
-
-  const { categoryId, sort, currentPage, searchValue } =
+  const { categoryId, sort, currentPage, searchValue, orderType } =
     useSelector(selectFilter);
-
   const sortType = sort.sortProperty;
-
-  const [orderType, setOrderType] = useState<boolean>(true);
 
   const onChangeCategory = useCallback((idx: number) => {
     dispatch(setCategoryId(idx));
@@ -106,7 +102,7 @@ const Home: FC = () => {
     <div className="container">
       <div className="content__top">
         <Categories value={categoryId} onChangeCategory={onChangeCategory} />
-        <Sort orderType={orderType} setOrderType={setOrderType} />
+        <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       {status === "error" ? (
