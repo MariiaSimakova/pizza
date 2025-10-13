@@ -1,10 +1,14 @@
-import { useEffect, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectSort, setSort } from "../redux/slices/filterSlice";
 
 type SortItem = {
   name: string;
   sortProperty: string;
+};
+
+type SortProps = {
+  orderType: boolean;
 };
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -14,7 +18,7 @@ export const sortList: SortItem[] = [
   { name: "алфавиту", sortProperty: "title" },
 ];
 
-function Sort({ orderType, setOrderType }) {
+const Sort: FC<SortProps> = ({ orderType, setOrderType }) => {
   const dispatch = useDispatch();
   const sort = useSelector(selectSort);
   // const orderType = useSelector((state) => state.filter.orderType);
@@ -28,8 +32,8 @@ function Sort({ orderType, setOrderType }) {
   };
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (!event.composedPath().includes(sortRef.current)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (sortRef.current && !event.composedPath().includes(sortRef.current)) {
         setOpen(false);
       }
     };
@@ -80,6 +84,6 @@ function Sort({ orderType, setOrderType }) {
       )}
     </div>
   );
-}
+};
 
 export default Sort;

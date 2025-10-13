@@ -31,7 +31,7 @@ const Home: FC = () => {
 
   const sortType = sort.sortProperty;
 
-  const [orderType, setOrderType] = useState(true);
+  const [orderType, setOrderType] = useState<boolean>(true);
 
   const onChangeCategory = useCallback((idx: number) => {
     dispatch(setCategoryId(idx));

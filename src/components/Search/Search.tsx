@@ -1,4 +1,11 @@
-import { FC, useCallback, useRef, useState } from "react";
+import {
+  ChangeEvent,
+  FC,
+  MouseEvent,
+  useCallback,
+  useRef,
+  useState,
+} from "react";
 import debounce from "lodash.debounce";
 import styles from "../Search/Search.module.scss";
 import { useDispatch } from "react-redux";
@@ -9,7 +16,9 @@ const Search: FC = () => {
   const [value, setValue] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const onClickClear = () => {
+  const onClickClear = (event: MouseEvent<SVGSVGElement>) => {
+    console.log(event);
+
     dispatch(setSearchValue(""));
     setValue("");
     inputRef.current?.focus();
@@ -22,7 +31,7 @@ const Search: FC = () => {
     []
   );
 
-  const onChangeInput = (event: any) => {
+  const onChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
     updateSearchValue(event.target.value);
   };
