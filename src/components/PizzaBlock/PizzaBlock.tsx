@@ -1,6 +1,10 @@
 import { FC, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { addItem, selectCartItemById } from "../../redux/slices/cartSlice";
+import {
+  addItem,
+  selectCartItemById,
+  CartItem,
+} from "../../redux/slices/cartSlice";
 import { Link } from "react-router-dom";
 
 const typeNames = ["тонкое", "традиционное"];
@@ -32,13 +36,14 @@ const PizzaBlock: FC<PizzaBlockProps> = ({
   const addedCount = cartItem ? cartItem.count : 0;
 
   const onClickAdd = () => {
-    const item = {
+    const item: CartItem = {
       id,
       imageUrl,
       title,
       price,
       type: typeNames[activeType],
       size: sizes[activeSize],
+      count: 0,
     };
 
     // отправляем новый item в корзину редакс
