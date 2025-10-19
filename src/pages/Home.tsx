@@ -1,7 +1,7 @@
 import qs from "qs";
 import { useNavigate } from "react-router-dom";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { FC, useCallback, useEffect, useRef } from "react";
 import {
   selectFilter,
@@ -9,6 +9,8 @@ import {
   setCurrentPage,
   setFilters,
 } from "../redux/slices/filterSlice";
+
+import { useAppDispatch } from "../redux/store";
 
 import { fetchPizzas, selectPizzaData } from "../redux/slices/pizzaSlice";
 
@@ -20,7 +22,7 @@ import Pagination from "../components/Pagination/Pagination";
 
 const Home: FC = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const isSearch = useRef(false);
   const isMounted = useRef(false);
 
@@ -38,7 +40,14 @@ const Home: FC = () => {
   };
 
   const getPizzas = async () => {
-    dispatch(fetchPizzas({ currentPage, categoryId, sortType, orderType }));
+    dispatch(
+      fetchPizzas({
+        currentPage,
+        categoryId,
+        sortType,
+        orderType,
+      })
+    );
 
     window.scrollTo(0, 0);
   };
