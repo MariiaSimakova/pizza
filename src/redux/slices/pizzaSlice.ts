@@ -28,16 +28,16 @@ const initialState: pizzaSliceState = {
   status: Status.LOADING,
 };
 
-type FetchPizzaArgs = {
+export type SearchPizzaParams = {
   currentPage: number;
   categoryId: number;
   sortType: string;
   orderType: boolean;
 };
 
-export const fetchPizzas = createAsyncThunk(
+export const fetchPizzas = createAsyncThunk<Pizza[], SearchPizzaParams>(
   "pizza/fetchPizzasStatus",
-  async (params: FetchPizzaArgs) => {
+  async (params) => {
     const { currentPage, categoryId, sortType, orderType } = params;
 
     const { data } = await axios.get(
@@ -46,7 +46,7 @@ export const fetchPizzas = createAsyncThunk(
       }
         `
     );
-    return data as Pizza[];
+    return data;
   }
 );
 
