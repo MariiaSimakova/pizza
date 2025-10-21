@@ -12,7 +12,11 @@ import {
 
 import { useAppDispatch } from "../redux/store";
 
-import { fetchPizzas, selectPizzaData } from "../redux/slices/pizzaSlice";
+import {
+  fetchPizzas,
+  SearchPizzaParams,
+  selectPizzaData,
+} from "../redux/slices/pizzaSlice";
 
 import Categories from "../components/Categories";
 import Sort, { sortList } from "../components/Sort";
@@ -29,7 +33,7 @@ const Home: FC = () => {
   const { items, status } = useSelector(selectPizzaData);
   const { categoryId, sort, currentPage, searchValue, orderType } =
     useSelector(selectFilter);
-  const sortType = sort.sortProperty;
+  const sortBy = sort.sortProperty;
 
   const onChangeCategory = useCallback((idx: number) => {
     dispatch(setCategoryId(idx));
@@ -44,7 +48,7 @@ const Home: FC = () => {
       fetchPizzas({
         currentPage,
         categoryId,
-        sortType,
+        sortBy,
         orderType,
       })
     );
@@ -68,20 +72,24 @@ const Home: FC = () => {
   // Если был первый рендер, то проверяем URl-параметры и сохраняем в редаксе
   useEffect(() => {
     if (window.location.search) {
-      const params = qs.parse(window.location.search.substring(1));
+      const params = qs.parse(
+        window.location.search.substring(1)
+      ) as unknown as SearchPizzaParams;
 
-      const sort = sortList.find(
-        (obj) => obj.sortProperty === params.sortProperty
-      );
+      const sort = sortList.find((obj) => obj.sortProperty === params.sortBy);
 
       dispatch(
         setFilters({
-          ...params,
-          sort,
+          searchValue,
+          orderType,
+          categoryId: Number(params.categoryId),
+          currentPage: Number(params.currentPage),
+          sort: sort || sortList[0],
         })
       );
-      isSearch.current = true;
     }
+
+    isSearch.current = true;
   }, []);
 
   // Если был первый рендер, то запрашиваем пиццы

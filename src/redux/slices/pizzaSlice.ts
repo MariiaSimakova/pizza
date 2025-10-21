@@ -31,17 +31,17 @@ const initialState: pizzaSliceState = {
 export type SearchPizzaParams = {
   currentPage: number;
   categoryId: number;
-  sortType: string;
+  sortBy: string;
   orderType: boolean;
 };
 
 export const fetchPizzas = createAsyncThunk<Pizza[], SearchPizzaParams>(
   "pizza/fetchPizzasStatus",
   async (params) => {
-    const { currentPage, categoryId, sortType, orderType } = params;
+    const { currentPage, categoryId, sortBy, orderType } = params;
 
     const { data } = await axios.get(
-      `https://6811c5a73ac96f7119a58412.mockapi.io/items?page=${currentPage}&limit=${4}&category=${categoryId}&sortBy=${sortType}&order=${
+      `https://6811c5a73ac96f7119a58412.mockapi.io/items?page=${currentPage}&limit=${4}&category=${categoryId}&sortBy=${sortBy}&order=${
         orderType ? "desc" : "asc"
       }
         `

@@ -5,21 +5,22 @@ import {
   setSort,
   selectOrderType,
   setOrderType,
+  SortPropertyEnum,
 } from "../redux/slices/filterSlice";
 
 type SortItem = {
   name: string;
-  sortProperty: string;
+  sortProperty: SortPropertyEnum;
 };
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const sortList: SortItem[] = [
-  { name: "популярности", sortProperty: "rating" },
-  { name: "цене", sortProperty: "price" },
-  { name: "алфавиту", sortProperty: "title" },
+  { name: "популярности", sortProperty: SortPropertyEnum.RATING },
+  { name: "цене", sortProperty: SortPropertyEnum.PRICE },
+  { name: "алфавиту", sortProperty: SortPropertyEnum.TITLE },
 ];
 
-const Sort: FC = () => {
+const SortPopUp: FC = () => {
   const dispatch = useDispatch();
   const sort = useSelector(selectSort);
   const orderType = useSelector(selectOrderType);
@@ -90,4 +91,4 @@ const Sort: FC = () => {
   );
 };
 
-export default Sort;
+export default SortPopUp;
