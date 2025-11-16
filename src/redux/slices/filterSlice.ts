@@ -48,16 +48,16 @@ export const filterSlice = createSlice({
     },
     setFilters(state, action: PayloadAction<FilterSliceState>) {
       if (Object.keys(action.payload).length) {
-        state.sort = action.payload.sort;
+        // state.sort = action.payload.sort;
         state.currentPage = Number(action.payload.currentPage);
         state.categoryId = Number(action.payload.categoryId);
       } else {
         state.currentPage = 1;
         state.categoryId = 0;
-        state.sort = {
-          name: "популярности",
-          sortProperty: SortPropertyEnum.RATING,
-        };
+        // state.sort = {
+        //   name: "популярности",
+        //   sortProperty: SortPropertyEnum.RATING,
+        // };
       }
     },
     setOrderType(state) {

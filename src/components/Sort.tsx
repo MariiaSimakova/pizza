@@ -1,16 +1,21 @@
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, memo, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  selectSort,
   setSort,
   selectOrderType,
   setOrderType,
   SortPropertyEnum,
+  Sort,
 } from "../redux/slices/filterSlice";
+import { useWhyDidYouUpdate } from "ahooks";
 
 type SortItem = {
   name: string;
   sortProperty: SortPropertyEnum;
+};
+
+type SortPopUpProps = {
+  value: Sort;
 };
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -20,9 +25,10 @@ export const sortList: SortItem[] = [
   { name: "алфавиту", sortProperty: SortPropertyEnum.TITLE },
 ];
 
-const SortPopUp: FC = () => {
+const SortPopUp: FC<SortPopUpProps> = memo(({ value }) => {
+  useWhyDidYouUpdate("SortPopUp", { value });
+  console.log("SortPopUp");
   const dispatch = useDispatch();
-  const sort = useSelector(selectSort);
   const orderType = useSelector(selectOrderType);
   const sortRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
@@ -68,7 +74,7 @@ const SortPopUp: FC = () => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setOpen(!open)}>{sort.name}</span>
+        <span onClick={() => setOpen(!open)}>{value.name}</span>
       </div>
       {open && (
         <div className="sort__popup">
@@ -78,7 +84,7 @@ const SortPopUp: FC = () => {
                 key={i}
                 onClick={() => onClickListItem(obj)}
                 className={
-                  sort.sortProperty === obj.sortProperty ? "active" : ""
+                  value.sortProperty === obj.sortProperty ? "active" : ""
                 }
               >
                 {obj.name}
@@ -89,6 +95,6 @@ const SortPopUp: FC = () => {
       )}
     </div>
   );
-};
+});
 
 export default SortPopUp;
