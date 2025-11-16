@@ -17,8 +17,6 @@ const Search: FC = () => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const onClickClear = (event: MouseEvent<SVGSVGElement>) => {
-    console.log(event);
-
     dispatch(setSearchValue(""));
     setValue("");
     inputRef.current?.focus();
