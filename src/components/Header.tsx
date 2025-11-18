@@ -6,7 +6,7 @@ import { useEffect, useRef } from "react";
 
 import logoSvg from "../assets/img/pizza-logo.svg";
 
-function Header({ searchValue, setSearchValue }) {
+function Header() {
   // вернем весь карт сюда
   const { items, totalPrice } = useSelector(selectCart);
   const location = useLocation();
