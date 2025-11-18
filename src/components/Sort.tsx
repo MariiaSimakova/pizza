@@ -7,7 +7,7 @@ import {
   SortPropertyEnum,
   Sort,
 } from "../redux/slices/filterSlice";
-import { useWhyDidYouUpdate } from "ahooks";
+// import { useWhyDidYouUpdate } from "ahooks";
 
 type SortItem = {
   name: string;
@@ -26,8 +26,8 @@ export const sortList: SortItem[] = [
 ];
 
 const SortPopUp: FC<SortPopUpProps> = memo(({ value }) => {
-  useWhyDidYouUpdate("SortPopUp", { value });
-  console.log("SortPopUp");
+  // useWhyDidYouUpdate("SortPopUp", { value });
+
   const dispatch = useDispatch();
   const orderType = useSelector(selectOrderType);
   const sortRef = useRef<HTMLDivElement>(null);
